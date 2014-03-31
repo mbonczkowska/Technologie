@@ -1,0 +1,16 @@
+{
+  "name": "Projekt",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "components/jquery#~2.1.0",
+    "components-bootstrap": "components/bootstrap#~3.1.1"
+  }
+}

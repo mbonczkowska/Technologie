@@ -1,0 +1,54 @@
+﻿
+
+
+header, section, footer, aside, nav, article, hgroup{
+	display: block;
+	
+}
+
+
+#big_wrapper {
+
+	
+	margin: 0 auto;
+	
+}
+#top_header {
+	padding: 20px; /* w środku */
+	margin-bottom:0px;
+}
+#new_div{
+	background-color: lightgrey;
+}
+#main_section{
+	
+	float: left;	
+	width: 760px;
+	margin: 30px; /* 720px, 280 left*/
+}
+
+#side_news {
+	float: left;
+	width: 220px;
+	margin: 20px 0px; /* top bottom */
+	padding: 30px;
+	
+}
+
+#the_footer {
+	clear:both; /* bez marginesów/paddingów */
+	text-align: center;
+	padding:20px;
+	border-top: 2px solid green;
+
+}
+
+article {
+	
+	padding: 20px;
+	margin-bottom: 15px;
+}
+
+article footer{
+	text-align:right;
+}

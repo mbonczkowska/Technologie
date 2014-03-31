@@ -18,7 +18,7 @@ header, section, footer, aside, nav, article, hgroup{
 	margin-bottom:0px;
 }
 #new_div{
-	background-color: lightgrey;
+	
 }
 #main_section{
 	
@@ -29,7 +29,7 @@ header, section, footer, aside, nav, article, hgroup{
 
 #side_news {
 	float: left;
-	width: 220px;
+	width: 270px;
 	margin: 20px 0px; /* top bottom */
 	padding: 30px;
 	

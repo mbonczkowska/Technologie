@@ -1,94 +1,95 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
 
     <title>Schronisko</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-	
-	 <link href="css/glowna.css" rel="stylesheet">
 
-  </head>
-  <body>
-  	<nav id="top_menu">
-  	<ul class="nav nav-pills navbar-inverse ">
-    <li class="active"><a href="#">Główna</a></li>
-   
-    <li class="dropdown">
-        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Zwierzęta <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li><a href="#">Psy</a></li>
-            <li><a href="#">Koty</a></li>
-            <li><a href="#">Króliki</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Inne</a></li>
+    <link href="css/glowna.css" rel="stylesheet">
+</head>
+<body>
+    <nav id="top_menu">
+        <ul class="nav nav-pills navbar-inverse ">
+            <li class="active"><a href="index.html">Główna</a></li>
+
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Zwierzęta <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="../components-bootstrap/pages/dogs.html">Psy</a></li>
+                    <li><a href="../components-bootstrap/pages/cats.html">Koty</a></li>
+                    <li><a href="../components-bootstrap/pages/rabbits.html">Króliki</a></li>
+                    <li class="divider"></li>
+                    <li><a href="../components-bootstrap/pages/other.html">Inne</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Profile</a></li>
+            <li class="dropdown pull-right" style="visibility: hidden;">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </li>
         </ul>
-    </li>
-	 <li><a href="#">Profile</a></li>
-    <li class="dropdown pull-right" style="visibility:hidden;">
-        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Settings</a></li>
-        </ul>
-    </li>
-</ul>
-	</nav> <!-- nawigacja -->
-  <div id="big_wrapper">
-		
-		
-	
-		<header id="top_header" class="jumbotron container">
-			<h2>Witamy w naszym schronisku!</h2>
-		</header> <!-- nagłówek -->
-		<div id="new_div" class="container">
-		<section id="main_section" class="col-xs-4">
-			<article>
-				<header>
-					<hgroup>
-						<h1>Tytuł artykułu</h1>
-						<h2>Podtytuł artykułu!</h2>
-				
-						 <p><a href="#" target="_blank" class="btn btn-success btn-lg">Get started today</a></p>
-					</hgroup> 
-				</header>
-				<p>artykuł eva</p>
-				<footer>
-					 <small>by <cite</cite></small>
-				<footer>
-			</article> 
-			<article>
-				<header>
-					<hgroup>
-						<h1>Tytuł artykułu 2</h1>
-						<h2>Podtytuł artykułu!</h2>
-						 <p><a href="#" target="_blank" class="btn btn-success btn-lg">Get started today</a></p>
-					</hgroup> 
-				</header>
-				<p>artykuł</p>
-				<footer>
-					 <small>by <cite></cite></small>
-				<footer>
-			</article> 
-		</section>
-		<aside id="side_news" class=" text-right">
-			<h4>Nowości</h4>
-			Mamy nowego podopiecznego
-		</aside> 
-		</div>
-		<footer id="the_footer" class="container">
-			Copyright 2014 
-		</footer> 
-		</div>
-		
+    </nav>
+    <!-- nawigacja -->
+    <div id="big_wrapper">
+
+
+
+        <header id="top_header" class="jumbotron container">
+            <h2>Witamy w naszym schronisku!</h2>
+        </header>
+        <!-- nagłówek -->
+        <div id="new_div" class="hero-unit container">
+            <section id="main_section" class="">
+                <article>
+                    <header>
+                        <hgroup>
+                            <h1>Tytuł artykułu</h1>
+                            <h2>Podtytuł artykułu!</h2>
+
+                           
+                        </hgroup>
+                    </header>
+                    <p>artykuł</p>
+                    <footer>
+                        <small>by <cite></cite></small>
+                    </footer>
+                </article>
+                <article>
+                    <header>
+                        <hgroup>
+                            <h1>Tytuł artykułu 2</h1>
+                            <h2>Podtytuł artykułu!</h2>
+                         
+                        </hgroup>
+                    </header>
+                    <p>artykuł</p>
+                    <footer>
+                        <small>by <cite></cite></small>
+                    </footer>
+                </article>
+            </section>
+            <aside id="side_news" class=" text-left">
+                <h4>Nowości</h4>
+                Mamy nowych podopiecznych
+            </aside>
+        </div>
+        <footer id="the_footer" class="container">
+            Copyright 2014 
+        </footer>
+    </div>
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-  </body>
+</body>
 </html>

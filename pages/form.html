@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Schronisko</title>
+
+   <!-- Bootstrap -->
+    <link href="../components-bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../components-bootstrap/css/glowna.css" rel="stylesheet">
+   <style>
+	.form-group input {
+    width:300px;
+}
+   </style>
+</head>
+<body>
+    <nav id="top_menu">
+        <ul class="nav nav-pills navbar-inverse ">
+            <li class="active"><a href="/">Główna</a></li>
+
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Zwierzęta <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="dogs.html">Psy</a></li>
+                    <li><a href="cats.html">Koty</a></li>
+                    <li><a href="rabbits.html">Króliki</a></li>
+                    <li class="divider"></li>
+                    <li><a href="other.html">Inne</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Profile</a></li>
+            <li class="dropdown pull-right" style="visibility: hidden;">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <!-- nawigacja -->
+    <div id="big_wrapper">
+		<header id="top_header" class="jumbotron container">
+			<h2>Formularz</h2>
+		</header> <!-- nagłówek -->
+		
+		
+		<div id="new_div" class="hero-unit container">
+           <h3>Dane właściciela:</h3>
+		  <form>
+			<div class="form-group">
+				<label for="inputName">Imię</label>
+				<input type="text" class="form-control" id="inputName" placeholder="Imię">
+			</div>
+			<div class="form-group">
+				<label for="inputSurname">Nazwisko</label>
+				<input type="text" class="form-control" id="inputSurname" placeholder="Nazwisko">
+			</div>
+			<div class="checkbox">
+				<label><input type="checkbox"> Remember me</label>
+			</div>
+			<button type="submit" class="btn btn-primary">Login</button>
+		</form>
+
+        </div>
+
+      
+       
+        <footer id="the_footer" class="container">
+            Copyright 2014 
+        </footer>
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../components-bootstrap/js/bootstrap.min.js"></script>
+	
+	<script src="script/buttons.js"></script>
+</body>
+</html>

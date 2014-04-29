@@ -11,6 +11,7 @@
     <link href="../components-bootstrap/css/glowna.css" rel="stylesheet">
 
     <link href="css/animal.css" rel="stylesheet">
+	<link href="css/glowna.css" rel="stylesheet">
 </head>
 <body>
     <nav id="top_menu">
@@ -20,11 +21,12 @@
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Zwierzęta <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="dogs.html">Psy</a></li>
-                    <li><a href="cats.html">Koty</a></li>
-                    <li><a href="rabbits.html">Króliki</a></li>
+                    <li><a href="#" id="dogs">Psy</a></li>
+                    <li><a href="#" id="cats">Koty</a></li>
+                    <li><a href="#" id="rabbits">Króliki</a></li>
                     <li class="divider"></li>
-                    <li><a href="other.html">Inne</a></li>
+                    <li><a href="#" id="others">Inne</a></li>
+					<li><a href="#" id="all">Wszystkie</a></li>
                 </ul>
             </li>
             <li><a href="#">Profile</a></li>
@@ -45,70 +47,46 @@
 
 
         <header id="top_header" class="jumbotron container">
-            <h2>Koty</h2>
+            <h2>Witamy w naszym schronisku!</h2>
         </header>
         <!-- nagłówek -->
         <div id="new_div" class="hero-unit container">
             <section id="main_section" class="">
+              <div id="articles">
                 <article>
                     <header>
-                        <p>Margo</p>
+                        <hgroup>
+                            <h1>Tytuł artykułu</h1>
+                            <h2>Podtytuł artykułu!</h2>
+
+                           
+                        </hgroup>
                     </header>
-                    <div class="obr">
-                        <img src="photos/cats/kot1.jpg" alt="Margo" class="img-thumbnail">
-                    </div>
-                    <table class="table table-striped tab">
-                        <tr>
-                            <th>Wielkość</th>
-                            <td>Średni</td>
-                        </tr>
-                        <tr>
-                            <th>Waga wejściowa</th>
-                            <td>2 kg</td>
-                        </tr>
-                        <tr>
-                            <th>Szczepienia</th>
-                            <td>Tak</td>
-                        </tr>
-                        <tr>
-                            <th>Boks</th>
-                            <td>3</td>
-                        </tr>
-                    </table>
+                    <p>artykuł</p>
                     <footer>
-                        <p><a href="form.html" class="btn btn-success btn-lg" id="kot1">Przygarnij</a></p>
+                        <small>by <cite></cite></small>
                     </footer>
                 </article>
                 <article>
                     <header>
-                        <p>Amit</p>
+                        <hgroup>
+                            <h1>Tytuł artykułu 2</h1>
+                            <h2>Podtytuł artykułu!</h2>
+                         
+                        </hgroup>
                     </header>
-                    <div class="obr">
-                        <img src="photos/cats/kot2.jpg" alt="Amit" class="img-thumbnail">
-                    </div>
-                    <table class="table table-striped tab">
-                        <tr>
-                            <th>Wielkość</th>
-                            <td>Średni</td>
-                        </tr>
-                        <tr>
-                            <th>Waga wejściowa</th>
-                            <td>2 kg</td>
-                        </tr>
-                        <tr>
-                            <th>Szczepienia</th>
-                            <td>Tak</td>
-                        </tr>
-                        <tr>
-                            <th>Boks</th>
-                            <td>4</td>
-                        </tr>
-                    </table>
+                    <p>artykuł</p>
                     <footer>
-                        <p><a href="form.html" class="btn btn-success btn-lg" id="kot2">Przygarnij</a></p>
+                        <small>by <cite></cite></small>
                     </footer>
                 </article>
+				</div>
             </section>
+              <aside id="side_news" class=" text-left">
+                <h4>Nowości</h4>
+                Mamy nowych podopiecznych
+            </aside>   
+           
           
         </div>
         <footer id="the_footer" class="container">
@@ -122,5 +100,6 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../components-bootstrap/js/bootstrap.min.js"></script>
 	<script src="script/buttons.js"></script>
+	<script src="script/shift.js"></script>
 </body>
 </html>

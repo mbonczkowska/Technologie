@@ -10,6 +10,38 @@
 .tab{
 	width:520px;
 }
+.paski{
+	float:left;
+}
+.defaultBar{
+	position:relative;
+	float:left; 
+	width:200px;
+	height:16px;
+	margin-right:10px;
+	
+	background:red;
+}
+.progressBar{
+	position:absolute;
+	width: 0px;
+	height:16px;
+	background:green;
+}
+.progressBar, .defaultBar{
+	float:left;
+}
+.przyciski{
+	position: absolute;
+	margin-top: 20px;
+	margin-left: 30px;
+}
+.przyciski a {
+	margin-right: 10px;
+}
+.przyciski a:nth-child(2){	margin-right: 70px;
+}
+
 article{
 border-bottom: 1px #000 solid;}
 article:last-child{

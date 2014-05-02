@@ -7,9 +7,7 @@
 
     <!-- Bootstrap -->
     <link href="../components-bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="../components-bootstrap/css/glowna.css" rel="stylesheet">
-
+	
     <link href="css/animal.css" rel="stylesheet">
 	<link href="css/glowna.css" rel="stylesheet">
 </head>
@@ -87,8 +85,31 @@
                 Mamy nowych podopiecznych
             </aside>   
            
-          
+			<div id="formularz">
+			 <form>
+			<div class="form-group">
+				<label for="inputName">Wybrałeś</label>
+				<input type="text" class="form-control" id="wybrany" disabled>
+			</div>
+				           <h3>Dane właściciela</h3>
+		  
+			
+			<div class="form-group">
+				<label for="inputName">Imię</label>
+				<input type="text" class="form-control" id="inputName" placeholder="Imię">
+			</div>
+			<div class="form-group">
+				<label for="inputSurname">Nazwisko</label>
+				<input type="text" class="form-control" id="inputSurname" placeholder="Nazwisko">
+			</div>
+			<div class="checkbox">
+				<label><input type="checkbox"> Remember me</label>
+			</div>
+			<button type="submit" class="btn btn-primary">Login</button>
+		</form>
+			
         </div>
+		</div>
         <footer id="the_footer" class="container">
             Copyright 2014 
         </footer>
@@ -101,5 +122,6 @@
     <script src="../components-bootstrap/js/bootstrap.min.js"></script>
 	<script src="script/buttons.js"></script>
 	<script src="script/shift.js"></script>
+	<script src="script/form.js"></script>
 </body>
 </html>

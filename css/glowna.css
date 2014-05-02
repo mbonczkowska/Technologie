@@ -52,3 +52,6 @@ article {
 article footer{
 	text-align:right;
 }
+.form-group input {
+    width:300px;
+}

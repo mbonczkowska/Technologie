@@ -35,24 +35,33 @@ $(function () {
 		//zgloszono();
 
     }
+	
+
 	var licz=1;
+	var li = 0;
 	function dodajPaski(licznik){
 		
 		$('.paski').html("<div class=\"defaultBar\"> <div class=\"progressBar jedzenie\"></div> </div><div class=\"defaultBar\"> <div class=\"progressBar zabawa\"></div></div>"
 		+"<div class=przyciski></div>");
 
 		for(m=0;m<=licznik;m++){
+			
 			$('.'+m+' footer .paski .jedzenie').width((10*schronisko[m].jedzenie) + "px");
 			$('.'+m+' footer .paski .zabawa').width((10*schronisko[m].zabawa) + "px");
 			
-		}
-		//console.log(i);
+			
+
+			
+		}	
 		for(var k=0;k<=licznik;k++){
 			if(schronisko[k].gatunek === "Pies"){
 			$('.'+k+' footer .paski .przyciski').html("<a href=\"#\" class=\"btn btn-primary btn-sm\">Kość</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Sucha karma</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Patyk</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Piłka</a>");
+			
+			//console.log("To to " + k);
+			//for(var g=0;g<=licznik;g++){
 			
 			/*($('.'+n+' footer .paski .przyciski a').click(function(){
 				var val = $(this).html(); 
@@ -64,38 +73,100 @@ $(function () {
 					
 				}
 			});*/
-			
-			
+			/*for(g=0;g<k;g++){
+				console.log("gieeaae" + g);
+				$('.'+g+' footer .paski .przyciski a').click(function(){
+					console.log("gieee" + g);
+					schronisko[g-1].jedzenie+=5;
+					$('.'+(g-1)+' footer .paski .jedzenie').width((10*schronisko[g-1].jedzenie) + "px");
+				});
+			}*/
+			//schronisko[k].jedzenie += 5; 
+			/*$('.'+ k +' footer .paski .przyciski a').click(function(){
+				console.log("To " + k);
+				var val = $(this).html(); 
+				console.log(val);
+				schronisko[k].jedzenie += 5; 
+				console.log(schronisko[k].jedzenie);
+				console.log(k);
+				$('.'+k+' footer .paski .jedzenie').width((10*schronisko[k].jedzenie) + "px");
+				console.log(k);
+				console.log($('.'+k+' footer .paski').width());
+			});
+			*/
 			}	
-			if(schronisko[k].gatunek === "Kot")
+			if(schronisko[k].gatunek === "Kot"){
 			$('.'+k+' footer .paski .przyciski').html("<a href=\"#\" class=\"btn btn-primary btn-sm\">Karma</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Mleko</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Laser</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Mysz</a>");
-			if(schronisko[k].gatunek === "Królik")
+			
+			}
+			
+			if(schronisko[k].gatunek === "Królik"){
 			$('.'+k+' footer .paski .przyciski').html("<a href=\"#\" class=\"btn btn-primary btn-sm\">Trawa</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Marchew</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Tuba</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Marchewka</a>");
-			if(schronisko[k].gatunek != "Pies" && schronisko[k].gatunek != "Kot" && schronisko[k].gatunek != "Królik")
+			}
+			if(schronisko[k].gatunek != "Pies" && schronisko[k].gatunek != "Kot" && schronisko[k].gatunek != "Królik"){
 			$('.'+k+' footer .paski .przyciski').html("<a href=\"#\" class=\"btn btn-primary btn-sm\">Przysmak</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Smakołyk</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Zabawka</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Inne</a>");
+			}
 		}
-	//	for(n=0;n<=licznik;n++){
-		/*	$('.0 footer .paski .przyciski a').click(function(){
-				var val = $(this).html(); 
-				console.log(val);
-				//console.log(n);
-				if(val === "Kość"){
-					schronisko[0].jedzenie += 1;
-					console.log($('.0 footer .paski .zabawa').width());
-					
-				}
-			});*/
-		//}
 	}
+	
+	function ustawPaski(licznik){
+	//console.log("LIcznik: "+ licznik);
+		var szer = 20; 
+		for(var k=0;k<=licznik;k++){
+		$('.'+k+' footer .paski .przyciski a:nth-child(1)').click(function(){
+		var jedz = $(this).parent().parent().children().children(".jedzenie");
+		var zwierz = $(this).parent().parent().parent().parent().attr('class');
+			if(schronisko[zwierz].jedzenie < szer){
+				if(schronisko[zwierz].jedzenie === szer-1){
+					schronisko[zwierz].jedzenie +=1;
+					jedz.width((10*schronisko[zwierz].jedzenie) + "px");
+				}else{				
+					schronisko[zwierz].jedzenie +=2;
+					jedz.width((10*schronisko[zwierz].jedzenie) + "px");
+				}
+			}
+		});
+		
+		$('.'+k+' footer .paski .przyciski a:nth-child(2)').click(function(){
+		jedz = $(this).parent().parent().children().children(".jedzenie");
+		zwierz = $(this).parent().parent().parent().parent().attr('class');
+		if(schronisko[zwierz].jedzenie < szer){
+			schronisko[zwierz].jedzenie +=1;
+			jedz.width((10*schronisko[zwierz].jedzenie) + "px");
+		}
+		});
+		$('.'+k+' footer .paski .przyciski a:nth-child(3)').click(function(){
+		var zabaw = $(this).parent().parent().children().children(".zabawa");
+		zwierz = $(this).parent().parent().parent().parent().attr('class');
+		if(schronisko[zwierz].zabawa < szer){
+			if(schronisko[zwierz].zabawa === szer-1){
+				schronisko[zwierz].zabawa +=1;
+				zabaw.width((10*schronisko[zwierz].zabawa) + "px");
+			} else{
+				schronisko[zwierz].zabawa +=2;
+				zabaw.width((10*schronisko[zwierz].zabawa) + "px");
+			}
+		}
+		});
+		$('.'+k+' footer .paski .przyciski a:nth-child(4)').click(function(){
+		var zabaw = $(this).parent().parent().children().children(".zabawa");
+		zwierz = $(this).parent().parent().parent().parent().attr('class');
+		if(schronisko[zwierz].zabawa < szer){
+			schronisko[zwierz].zabawa +=1;
+			zabaw.width((10*schronisko[zwierz].zabawa) + "px");
+		}
+		});
+	}}
+	
     $('#dogs, #cats,#rabbits,#others,#all').click(function () {
 	var licznik =1;
 	var j =0;
@@ -110,6 +181,7 @@ $(function () {
 					j=i;
                     ustaw(schronisko);
 					dodajPaski(i);
+					ustawPaski(i);
 					//console.log($('article').attr('class'));
 					
 					j++;
@@ -128,6 +200,7 @@ $(function () {
                     ustaw(schronisko);
 					
 					dodajPaski(i);
+					ustawPaski(i);
 					
                 }
 				
@@ -141,6 +214,7 @@ $(function () {
                 if (schronisko[i].gatunek === "Królik") {
                     ustaw(schronisko);
 					dodajPaski(i);
+					ustawPaski(i);
                 }
 				
 				
@@ -155,6 +229,7 @@ $(function () {
                 if (schronisko[i].gatunek != "Kot" && schronisko[i].gatunek != "Pies" && schronisko[i].gatunek != "Królik") {
                     ustaw(schronisko);
 					dodajPaski(i);
+					ustawPaski(i);
                 }
 				
             }
@@ -176,6 +251,7 @@ $(function () {
                 $("#articles").html(pomoc);
 			
 				dodajPaski(i);
+				ustawPaski(i);
             };
 
         }

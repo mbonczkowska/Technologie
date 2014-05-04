@@ -37,7 +37,20 @@
                     <li><a href="#">Settings</a></li>
                 </ul>
             </li>
+				
+		<div id="nickWrap">
+					<div id="user"></div>
+					<div id="nickError"></div>
+				<form action="" id="setNick" class="navbar-form">
+					<input type="text" class="form-control"  id="nickname">
+					<input type="submit" class="btn btn-default">
+				</form>
+		</div>
+			
         </ul>
+		
+		
+		
     </nav>
     <!-- nawigacja -->
     <div id="big_wrapper">
@@ -118,10 +131,12 @@
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="../socket.io/socket.io.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../components-bootstrap/js/bootstrap.min.js"></script>
 	<script src="script/buttons.js"></script>
 	<script src="script/shift.js"></script>
 	<script src="script/form.js"></script>
+	<script src="script/user.js"></script>
 </body>
 </html>

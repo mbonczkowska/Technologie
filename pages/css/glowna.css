@@ -55,3 +55,14 @@ article footer{
 .form-group input {
     width:300px;
 }
+#nickWrap{
+	float:right;
+	margin: -5px 0 -5px 0;
+}
+#nickBox, #nickError,#user{
+	color:#428bca;
+}
+#user{
+	font-size:20px;
+	//padding:10px 15px;
+}

@@ -9,7 +9,9 @@
 		e.preventDefault();
 		socket.emit('new user', $nickBox.val(), function(data){
 			if(data){			
-		
+				$nickForm.hide();
+				$nickError.hide();
+				$user.show();
 			} else{
 				$nickError.html('Ten login już został użyty. Spróbuj ponownie');
 			}
@@ -19,16 +21,12 @@
 	});
 	
 	socket.on('usernames',function(data){
-		$nickForm.hide();
-		$nickError.hide();
-		var last = data[data.length-1];
-		console.log(last);
-		$user.html(last);
-		/*var html = '';
-		for(i=0; i<data.length;i++){
-			html += data[i];
-		}
-		console.log(html);
-		$user.html(html);*/
+		
+		$user.html(data);
+		//$user.html(data.count+ "sss"  + i + data.nick.length-1 );
+		// + data.nick[data.count + data.nick.length-1]
+		
+
 	});
+
 });

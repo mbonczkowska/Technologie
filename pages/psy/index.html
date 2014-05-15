@@ -14,17 +14,17 @@
 <body>
     <nav id="top_menu">
         <ul class="nav nav-pills navbar-inverse ">
-            <li class="active"><a href="/">Główna/Wyloguj</a></li>
+            <li class="active"><a href="/">Główna</a></li>
 
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Zwierzęta <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a id="dogs">Psy</a></li>
-                    <li><a id="cats">Koty</a></li>
-                    <li><a id="rabbits">Króliki</a></li>   
-                    <li><a id="others">Inne</a></li>
-					  <li class="divider"></li>
-					<li><a id="all">Wszystkie</a></li>
+                    <li><a href="/psy/" id="dogs">Psy</a></li>
+                    <li><a href="#" id="cats">Koty</a></li>
+                    <li><a href="#" id="rabbits">Króliki</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#" id="others">Inne</a></li>
+					<li><a href="#" id="all">Wszystkie</a></li>
                 </ul>
             </li>
             <li><a href="#">Profile</a></li>
@@ -134,11 +134,9 @@
 	<script src="../socket.io/socket.io.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../components-bootstrap/js/bootstrap.min.js"></script>
-	<script src="script/user.js"></script>
-	
+	<script src="script/buttons.js"></script>
 	<script src="script/shift.js"></script>
 	<script src="script/form.js"></script>
-	<script src="script/buttons.js"></script>
-	
+	<script src="script/user.js"></script>
 </body>
 </html>

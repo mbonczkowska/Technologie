@@ -12,15 +12,19 @@ $(function () {
 		{ imie: "Ami", gatunek: "Myszoskoczek", wielkosc: "Mały", waga: "0,1 kg", szczepienia: "Tak", boks: 8 ,jedzenie:10,zabawa:10 }
     ];
 	
+	
+	
     var zwierz = "";
     var pomoc = "";
     var tytul = "";
+	var socket = io.connect();
 	
-	$("#formularz").hide();
+	
     function title(naglowek) {
         tytul = $(naglowek).html();
         $("#top_header h2").html(tytul);
     }
+
     function ustaw(schronisko) {
         zwierz = "<article class=\""+i+"\"> <header> <p>" + schronisko[i].imie + "</p> </header>" +
 		"<div class=\"obr\"> <img src=\"../photos/" + schronisko[i].imie + ".jpg\" alt=\"" + schronisko[i].imie + "\" class=\"img-thumbnail\">" +
@@ -29,16 +33,10 @@ $(function () {
 		"<td>" + schronisko[i].boks + "</td> </tr>  </table> <footer><div class=\"paski\"></div> <p><a href=\"#\" class=\"btn btn-success btn-lg przygarnij\" id=\"" + schronisko[i].boks + "\">Przygarnij</a></p>" +
 		"</footer> </article>";
 
-        pomoc = pomoc + zwierz;
+        pomoc += zwierz;
         $("#articles").html(pomoc);
-		
-		//zgloszono();
-
     }
 	
-
-	var licz=1;
-	var li = 0;
 	function dodajPaski(licznik){
 		
 		$('.paski').html("<div class=\"defaultBar\"> <div class=\"progressBar jedzenie\"></div> </div><div class=\"defaultBar\"> <div class=\"progressBar zabawa\"></div></div>"
@@ -47,53 +45,17 @@ $(function () {
 		for(m=0;m<=licznik;m++){
 			
 			$('.'+m+' footer .paski .jedzenie').width((10*schronisko[m].jedzenie) + "px");
-			$('.'+m+' footer .paski .zabawa').width((10*schronisko[m].zabawa) + "px");
-			
-			
-
-			
+			$('.'+m+' footer .paski .zabawa').width((10*schronisko[m].zabawa) + "px");			
 		}	
+		
+
+		
 		for(var k=0;k<=licznik;k++){
 			if(schronisko[k].gatunek === "Pies"){
 			$('.'+k+' footer .paski .przyciski').html("<a href=\"#\" class=\"btn btn-primary btn-sm\">Kość</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Sucha karma</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Patyk</a>"+
 			"<a href=\"#\" class=\"btn btn-primary btn-sm\">Piłka</a>");
-			
-			//console.log("To to " + k);
-			//for(var g=0;g<=licznik;g++){
-			
-			/*($('.'+n+' footer .paski .przyciski a').click(function(){
-				var val = $(this).html(); 
-				console.log(val);
-				//console.log(k);
-				if(val === "Kość"){
-					schronisko[k].jedzenie += 1;
-					console.log($('.'+k+' footer .paski .zabawa').width());
-					
-				}
-			});*/
-			/*for(g=0;g<k;g++){
-				console.log("gieeaae" + g);
-				$('.'+g+' footer .paski .przyciski a').click(function(){
-					console.log("gieee" + g);
-					schronisko[g-1].jedzenie+=5;
-					$('.'+(g-1)+' footer .paski .jedzenie').width((10*schronisko[g-1].jedzenie) + "px");
-				});
-			}*/
-			//schronisko[k].jedzenie += 5; 
-			/*$('.'+ k +' footer .paski .przyciski a').click(function(){
-				console.log("To " + k);
-				var val = $(this).html(); 
-				console.log(val);
-				schronisko[k].jedzenie += 5; 
-				console.log(schronisko[k].jedzenie);
-				console.log(k);
-				$('.'+k+' footer .paski .jedzenie').width((10*schronisko[k].jedzenie) + "px");
-				console.log(k);
-				console.log($('.'+k+' footer .paski').width());
-			});
-			*/
 			}	
 			if(schronisko[k].gatunek === "Kot"){
 			$('.'+k+' footer .paski .przyciski').html("<a href=\"#\" class=\"btn btn-primary btn-sm\">Karma</a>"+
@@ -117,32 +79,92 @@ $(function () {
 			}
 		}
 	}
-	
+	function changeFood1(){	
+	var dana = 10*schronisko[zwierz].jedzenie + "px";			
+				socket.emit('event j', {szer:dana,idZwierzaka:zwierz});
+				
+				socket.on('change width j', function (data) {							
+						var zmien = (parseInt(data.szer))/10; 					  	
+						var $nakarmij = $('.'+data.idZwierzaka +' footer .paski .przyciski a:nth-child(1)').parent().parent().children().children(".jedzenie");
+						console.log(data.idZwierzaka + ' '+zwierz +' '+ zmien);
+						$nakarmij.width(data.szer);
+						schronisko[data.idZwierzaka].jedzenie = zmien;								
+					});	
+	}
+	function changeFood2(){	
+	var dana = 10*schronisko[zwierz].jedzenie + "px";		
+				socket.emit('event j', {szer:dana,idZwierzaka:zwierz});
+				
+				socket.on('change width j', function (data) {							
+						var zmien = (parseInt(data.szer))/10; 					  	
+						var $nakarmij = $('.'+data.idZwierzaka +' footer .paski .przyciski a:nth-child(2)').parent().parent().children().children(".jedzenie");
+						console.log(data.idZwierzaka + ' '+zwierz +' '+ zmien);
+						$nakarmij.width(data.szer);
+						schronisko[data.idZwierzaka].jedzenie = zmien;								
+					});	
+	}
+	function changeFun3(){	
+	var dana = 10*schronisko[zwierz].zabawa + "px";		
+				socket.emit('event z', {szer:dana,idZwierzaka:zwierz});
+				
+				socket.on('change width z', function (data) {							
+						var zmien = (parseInt(data.szer))/10; 					  	
+						zabaw = $('.'+data.idZwierzaka +' footer .paski .przyciski a:nth-child(3)').parent().parent().children().children(".zabawa");
+						console.log(data.idZwierzaka + ' '+zwierz +' '+ zmien);
+						zabaw.width(data.szer);
+						schronisko[data.idZwierzaka].zabawa = zmien;								
+					});	
+	}
+	function changeFun4(){	
+	var dana = 10*schronisko[zwierz].zabawa + "px";		
+				socket.emit('event z', {szer:dana,idZwierzaka:zwierz});
+				
+				socket.on('change width z', function (data) {							
+						var zmien = (parseInt(data.szer))/10; 					  	
+						zabaw = $('.'+data.idZwierzaka +' footer .paski .przyciski a:nth-child(4)').parent().parent().children().children(".zabawa");
+						console.log(data.idZwierzaka + ' '+zwierz +' '+ zmien);
+						zabaw.width(data.szer);
+						schronisko[data.idZwierzaka].zabawa = zmien;								
+					});	
+	}
+
 	function ustawPaski(licznik){
-	//console.log("LIcznik: "+ licznik);
+	
 		var szer = 20; 
-		for(var k=0;k<=licznik;k++){
-		$('.'+k+' footer .paski .przyciski a:nth-child(1)').click(function(){
+		
+		var counter=0;
+
+
+		for(var k=0;k<=licznik;k+=1){
+			
+		
+		
+		$('.'+k+' footer .paski .przyciski a:nth-child(1)').click(function(){			
 		var jedz = $(this).parent().parent().children().children(".jedzenie");
-		var zwierz = $(this).parent().parent().parent().parent().attr('class');
-			if(schronisko[zwierz].jedzenie < szer){
-				if(schronisko[zwierz].jedzenie === szer-1){
-					schronisko[zwierz].jedzenie +=1;
-					jedz.width((10*schronisko[zwierz].jedzenie) + "px");
-				}else{				
-					schronisko[zwierz].jedzenie +=2;
-					jedz.width((10*schronisko[zwierz].jedzenie) + "px");
-				}
+		zwierz = $(this).parent().parent().parent().parent().attr('class');
+		if(schronisko[zwierz].jedzenie < szer){
+			if(schronisko[zwierz].jedzenie === szer-1){
+				schronisko[zwierz].jedzenie +=1;
+				changeFood1();
+				
+			} else{		
+				
+				schronisko[zwierz].jedzenie +=2;
+				changeFood1();
+												
 			}
+		}
+			return false;
 		});
 		
 		$('.'+k+' footer .paski .przyciski a:nth-child(2)').click(function(){
-		jedz = $(this).parent().parent().children().children(".jedzenie");
+		var jedz = $(this).parent().parent().children().children(".jedzenie");
 		zwierz = $(this).parent().parent().parent().parent().attr('class');
 		if(schronisko[zwierz].jedzenie < szer){
 			schronisko[zwierz].jedzenie +=1;
-			jedz.width((10*schronisko[zwierz].jedzenie) + "px");
+			changeFood2();
 		}
+		return false;
 		});
 		$('.'+k+' footer .paski .przyciski a:nth-child(3)').click(function(){
 		var zabaw = $(this).parent().parent().children().children(".zabawa");
@@ -150,20 +172,25 @@ $(function () {
 		if(schronisko[zwierz].zabawa < szer){
 			if(schronisko[zwierz].zabawa === szer-1){
 				schronisko[zwierz].zabawa +=1;
-				zabaw.width((10*schronisko[zwierz].zabawa) + "px");
-			} else{
+				changeFun3();
+				
+			} else{		
+				
 				schronisko[zwierz].zabawa +=2;
-				zabaw.width((10*schronisko[zwierz].zabawa) + "px");
+				changeFun3();
+												
 			}
 		}
+			return false;
 		});
 		$('.'+k+' footer .paski .przyciski a:nth-child(4)').click(function(){
 		var zabaw = $(this).parent().parent().children().children(".zabawa");
 		zwierz = $(this).parent().parent().parent().parent().attr('class');
 		if(schronisko[zwierz].zabawa < szer){
 			schronisko[zwierz].zabawa +=1;
-			zabaw.width((10*schronisko[zwierz].zabawa) + "px");
+			changeFun4();			
 		}
+		return false;
 		});
 	}}
 	
@@ -277,5 +304,5 @@ $(function () {
 			
 		});
 	}
-	
+	 
 });

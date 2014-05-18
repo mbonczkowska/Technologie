@@ -47,10 +47,18 @@
 .komunikaty{
 padding: 5px;
 border-top: 1px solid lightgrey;
-text-align:left;
+//text-align:left;
+}
+.komunikaty .msgJedzenie{
+	float: left;
+text-align: left;
+}
+.komunikaty .msgZabawa{
+	float: left;
+text-align: left;
 }
 .komunikaty a{
-float:right;
+//float:right;
 }
 
 article{

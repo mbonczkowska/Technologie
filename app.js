@@ -21,12 +21,14 @@ mongoose.connect("mongodb://localhost/schronisko", function (err) {
 var paskiSchema = mongoose.Schema({
     szer: String,
     idZwierzaka: String,
+	komunikat: String,
     created: { type: Date, default: Date.now }
 });
 
 var paskiZabawySchema = mongoose.Schema({
     szer: String,
     idZwierzaka: String,
+	komunikat: String,
     created: { type: Date, default: Date.now }
 });
 
@@ -83,6 +85,9 @@ io.sockets.on('connection', function (socket) {
 			//console.log(data);
 			io.sockets.emit("change width z", data);
 		});
+    });
+	 socket.on('send message j', function (data) {
+        io.sockets.emit("change message j", data);
     });
     socket.on('message', function (data) {
         io.sockets.emit("change message", data);

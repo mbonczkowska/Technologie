@@ -14,6 +14,7 @@
     var pomoc = "";
     var tytul = "";
     var socket = io.connect();
+	var prevState = "";
 
     setInterval(ustawCzas, 1000);
     function ustawCzas() {
@@ -31,6 +32,7 @@
                         var zmien = (parseInt(data.szer)) / 10;
                         var $nakarmij = $('.' + data.idZwierzaka + ' footer .paski .defaultBar .jedzenie');
                         $nakarmij.width(data.szer);
+						 //$('.' + data.idZwierzaka + ' footer .komunikaty').html(data.komunikat);
                         schronisko[data.idZwierzaka].jedzenie = zmien;
                     });
 
@@ -57,6 +59,7 @@
                 var zmien = (parseInt(data[i].szer)) / 10;
                 var $nakarmij = $('.' + data[i].idZwierzaka + ' footer .paski .defaultBar .jedzenie');
                 $nakarmij.width(data[i].szer);
+				//$('.' + data.idZwierzaka + ' footer .komunikaty').html(data.komunikat);
                 schronisko[data[i].idZwierzaka].jedzenie = zmien;
 
             }
@@ -85,7 +88,7 @@
 		"</div> <table class=\"table table-striped tab\">  <tr> <th>Wielkość</th> <td>" + schronisko[i].wielkosc + "</td> </tr> <tr>" +
 		"<th>Waga wejściowa</th> <td>" + schronisko[i].waga + "</td> </tr> <tr> <th>Szczepienia</th> <td>" + schronisko[i].szczepienia + "</td> </tr> <tr> <th>Boks</th>" +
 		"<td>" + schronisko[i].boks + "</td> </tr>  </table> <footer><div class=\"paski\"></div> <p><a href=\"#\" class=\"btn btn-success btn-lg przygarnij\" id=\"" + schronisko[i].boks + "\">Przygarnij</a></p>" +
-		"<div class=\"komunikaty\"><a href=\"#\" class=\"btn btn-danger btn-xs ukryj\">x</a></div></footer> </article>";
+		"<div class=\"komunikaty\"><div class=\"msgJedzenie\"></div><br/><div class=\"msgZabawa\"></div><a href=\"#\" class=\"btn btn-danger btn-xs ukryj\">x</a></div></footer> </article>";
         //<div id=\"komunikaty\"><a href=\"#\" class=\"btn btn-danger btn-xs ukryj\">X</a></div>
         pomoc += zwierz;
         $("#articles").html(pomoc);
@@ -97,19 +100,16 @@
 		+ "<div class=przyciski></div>");
 
         for (m = 0; m <= licznik; m++) {
-            var danaj = 10 * schronisko[m].jedzenie + "px";
-            //$('.'+m+' footer .paski .jedzenie').width((10*schronisko[m].jedzenie) + "px");
+		
+            var danaj = 10 * schronisko[m].jedzenie + "px";           
             socket.emit('event j', { szer: danaj, idZwierzaka: m });
-
-            socket.on('change width j', function (data) {
-                
+            socket.on('change width j', function (data) {               
                 var zmien = (parseInt(data.szer)) / 10;
                 var $nakarmij = $('.' + data.idZwierzaka + ' footer .paski .defaultBar .jedzenie');
-                $nakarmij.width(data.szer);
-                schronisko[data.idZwierzaka].jedzenie = zmien;
-
-            
+                $nakarmij.width(data.szer);				
+                schronisko[data.idZwierzaka].jedzenie = zmien;           
 			});
+			
             var danaz = 10 * schronisko[m].zabawa + "px";
             socket.emit('event z', { szer: danaz, idZwierzaka: m });
             socket.on('change width z', function (data) {
@@ -118,14 +118,8 @@
                 $zabaw.width(data.szer);
                 schronisko[data.idZwierzaka].zabawa = zmien;
             });
-
-
-            //$('.'+m+' footer .paski .jedzenie').width((10*schronisko[m].jedzenie) + "px");
-            //$('.'+m+' footer .paski .zabawa').width((10*schronisko[m].zabawa) + "px");			
+		
         }
-
-
-
 
         for (var k = 0; k <= licznik; k++) {
             if (schronisko[k].gatunek === "Pies") {
@@ -156,62 +150,53 @@
             }
         }
     }
-    function changeFood1() {
-        $('.' + zwierz + ' footer .komunikaty').append("Został nakarmiony przez " + $('#user').html() + "</br>");
+    function changeFood1(komunikat) {
         var dana = 10 * schronisko[zwierz].jedzenie + "px";
-        prevState = $('.' + zwierz + ' footer .komunikaty').html();
-        komunikat = "Został nakarmiony przez " + $('#user').html() + "</br>";
+        $('.' + zwierz + ' footer .komunikaty .msgJedzenie').html('');		
+        socket.emit('event j', { szer: dana, idZwierzaka: zwierz, komunikat: komunikat });
+        socket.on('change width j', function (data) {
+            var zmien = (parseInt(data.szer)) / 10;
+            var $nakarmij = $('.' + data.idZwierzaka + ' footer .paski .przyciski a:nth-child(1)').parent().parent().children().children(".jedzenie");
+			 $('.' + data.idZwierzaka + ' footer .komunikaty .msgJedzenie').html(data.komunikat);
+            $nakarmij.width(data.szer);
+            schronisko[data.idZwierzaka].jedzenie = zmien;
+        });
+
+
+    }
+
+    function changeFood2(komunikat) {
+        var dana = 10 * schronisko[zwierz].jedzenie + "px";
         socket.emit('event j', { szer: dana, idZwierzaka: zwierz, komunikat: komunikat });
 
         socket.on('change width j', function (data) {
             var zmien = (parseInt(data.szer)) / 10;
-
-            var $nakarmij = $('.' + data.idZwierzaka + ' footer .paski .przyciski a:nth-child(1)').parent().parent().children().children(".jedzenie");
-            //console.log(data.idZwierzaka + ' '+zwierz +' '+ zmien);
-            console.log(data.komunikat);
-            $('.' + data.idZwierzaka + ' footer .komunikaty').html(data.komunkat);
-            //$('.'+data.idZwierzaka +' footer .komunikaty').html();	
-            $nakarmij.width(data.szer);
-            schronisko[data.idZwierzaka].jedzenie = zmien;
-        });
-
-
-    }
-    socket.on('change message', function (data) {
-
-        //$('.'+data.idZwierzaka +' footer .komunikaty').html(data.komunkat);
-    });
-    function changeFood2() {
-        var dana = 10 * schronisko[zwierz].jedzenie + "px";
-        socket.emit('event j', { szer: dana, idZwierzaka: zwierz });
-
-        socket.on('change width j', function (data) {
-            var zmien = (parseInt(data.szer)) / 10;
             var $nakarmij = $('.' + data.idZwierzaka + ' footer .paski .przyciski a:nth-child(2)').parent().parent().children().children(".jedzenie");
-            $nakarmij.width(data.szer);
+			 $('.' + data.idZwierzaka + ' footer .komunikaty .msgJedzenie').html(data.komunikat);
+            $nakarmij.width(data.szer);			
             schronisko[data.idZwierzaka].jedzenie = zmien;
         });
     }
-    function changeFun3() {
+    function changeFun3(komunikat) {
         var dana = 10 * schronisko[zwierz].zabawa + "px";
-        socket.emit('event z', { szer: dana, idZwierzaka: zwierz });
+        socket.emit('event z', { szer: dana, idZwierzaka: zwierz, komunikat: komunikat  });
 
         socket.on('change width z', function (data) {
             var zmien = (parseInt(data.szer)) / 10;
             zabaw = $('.' + data.idZwierzaka + ' footer .paski .przyciski a:nth-child(3)').parent().parent().children().children(".zabawa");
-           
+            $('.' + data.idZwierzaka + ' footer .komunikaty .msgZabawa').html(data.komunikat);
             zabaw.width(data.szer);
             schronisko[data.idZwierzaka].zabawa = zmien;
         });
     }
-    function changeFun4() {
+    function changeFun4(komunikat) {
         var dana = 10 * schronisko[zwierz].zabawa + "px";
-        socket.emit('event z', { szer: dana, idZwierzaka: zwierz });
+        socket.emit('event z', { szer: dana, idZwierzaka: zwierz, komunikat: komunikat  });
 
         socket.on('change width z', function (data) {
             var zmien = (parseInt(data.szer)) / 10;
             zabaw = $('.' + data.idZwierzaka + ' footer .paski .przyciski a:nth-child(4)').parent().parent().children().children(".zabawa");
-            //console.log(data.idZwierzaka + ' '+zwierz +' '+ zmien);
+			$('.' + data.idZwierzaka + ' footer .komunikaty .msgZabawa').html(data.komunikat);
             zabaw.width(data.szer);
             schronisko[data.idZwierzaka].zabawa = zmien;
         });
@@ -234,24 +219,22 @@
 
 
             $('.' + k + ' footer .paski .przyciski a:nth-child(1)').click(function () {
-
+	
                 var jedz = $(this).parent().parent().children().children(".jedzenie");
                 zwierz = $(this).parent().parent().parent().parent().attr('class');
-                $('.' + zwierz + ' footer .komunikaty').show();
-                if (schronisko[zwierz].jedzenie < szer) {
+				nazwaJedzenia =$(this).html();
+                //$('.' + zwierz + ' footer .komunikaty').show();
+				$('.' + zwierz + ' footer .komunikaty').show();
+				var komunikat = "[" + nazwaJedzenia+ "] Został nakarmiony przez: " + $('#user').html() + "</br>";
+                if (schronisko[zwierz].jedzenie <= szer) {
 
                     if (schronisko[zwierz].jedzenie === szer - 1) {
                         schronisko[zwierz].jedzenie += 1;
-                        changeFood1();
-                        //prevState = $('.'+zwierz +' footer .komunikaty').html();	
-                        //komunikat = "Został nakarmiony przez " + $('#user').html() +"</br>"
-                        //socket.emit('message',{uzytkownik: komunikat,idZwierzaka:zwierz});	
+                        changeFood1(komunikat);
+
                     } else {
-                        //prevState = $('.'+zwierz +' footer .komunikaty').html();	
-                        //komunikat = "Został nakarmiony przez " + $('#user').html() +"</br>";
-                        //	socket.emit('message',{uzytkownik: komunikat,idZwierzaka:zwierz});	
                         schronisko[zwierz].jedzenie += 2;
-                        changeFood1();
+                        changeFood1(komunikat);
 
                     }
                 }
@@ -261,26 +244,30 @@
             $('.' + k + ' footer .paski .przyciski a:nth-child(2)').click(function () {
                 var jedz = $(this).parent().parent().children().children(".jedzenie");
                 zwierz = $(this).parent().parent().parent().parent().attr('class');
+				nazwaJedzenia =$(this).html();
+				var komunikat = "[" + nazwaJedzenia+ "] Został nakarmiony przez: " + $('#user').html() + "</br>";
                 $('.' + zwierz + ' footer .komunikaty').show();
                 if (schronisko[zwierz].jedzenie < szer) {
                     schronisko[zwierz].jedzenie += 1;
-                    changeFood2();
+                    changeFood2(komunikat);
                 }
                 return false;
             });
             $('.' + k + ' footer .paski .przyciski a:nth-child(3)').click(function () {
                 var zabaw = $(this).parent().parent().children().children(".zabawa");
                 zwierz = $(this).parent().parent().parent().parent().attr('class');
-                $('.' + zwierz + ' footer .komunikaty').show();
+               // $('.' + zwierz + ' footer .komunikaty').show();
+			   nazwaZabawy =$(this).html();
+				var komunikat = "[" + nazwaZabawy+ "] Pobawił się z: " + $('#user').html() + "</br>";
                 if (schronisko[zwierz].zabawa < szer) {
                     if (schronisko[zwierz].zabawa === szer - 1) {
                         schronisko[zwierz].zabawa += 1;
-                        changeFun3();
+                        changeFun3(komunikat);
 
                     } else {
 
                         schronisko[zwierz].zabawa += 2;
-                        changeFun3();
+                        changeFun3(komunikat);
 
                     }
                 }
@@ -289,10 +276,12 @@
             $('.' + k + ' footer .paski .przyciski a:nth-child(4)').click(function () {
                 var zabaw = $(this).parent().parent().children().children(".zabawa");
                 zwierz = $(this).parent().parent().parent().parent().attr('class');
-                $('.' + zwierz + ' footer .komunikaty').show();
+               $('.' + zwierz + ' footer .komunikaty').show();
+			   nazwaZabawy =$(this).html();
+				var komunikat = "[" + nazwaZabawy+ "] Pobawił się z: " + $('#user').html() + "</br>";
                 if (schronisko[zwierz].zabawa < szer) {
                     schronisko[zwierz].zabawa += 1;
-                    changeFun4();
+                    changeFun4(komunikat);
                 }
                 return false;
             });
@@ -374,7 +363,7 @@
                 "<th>Waga wejściowa</th> <td>" + schronisko[i].waga + "</td> </tr> <tr> <th>Szczepienia</th> <td>" + schronisko[i].szczepienia + "</td> </tr> <tr> <th>Boks</th>" +
                 "<td>" + schronisko[i].boks + "</td> </tr>  </table> <footer> <div class=\"paski\"></div>" +
 				"<p><a href=\"#\" class=\"btn btn-success btn-lg przygarnij\" id=\"" + schronisko[i].boks + "\">Przygarnij</a></p>" +
-                "<div class=\"komunikaty\"><a href=\"#\" class=\"btn btn-danger btn-xs ukryj\">x</a></div></footer> </article>";
+                "<div class=\"komunikaty\"><div class=\"msgJedzenie\"></div><br/><div class=\"msgZabawa\"></div><a href=\"#\" class=\"btn btn-danger btn-xs ukryj\">x</a></div></footer> </article>";
 
                 pomoc = pomoc + zwierz;
                 $("#articles").html(pomoc);

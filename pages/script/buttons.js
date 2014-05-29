@@ -1,4 +1,4 @@
 ﻿$(function () {
-	console.log($('.jedzenie').width());
+	//console.log($('.jedzenie').width());
 	
 });

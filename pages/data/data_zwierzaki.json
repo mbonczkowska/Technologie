@@ -1,0 +1,10 @@
+{
+"zwierze0":{ "imie": "Rex", "gatunek": "Pies", "wielkosc": "Duży", "waga": "30 kg", "szczepienia": "Tak", "boks": 1, "jedzenie": 10, "zabawa": 10 },
+"zwierze1":{ "imie": "Ren", "gatunek": "Pies", "wielkosc": "Średni", "waga": "10 kg", "szczepienia": "Tak", "boks": 2, "jedzenie": 10, "zabawa": 10 },
+"zwierze2":{ "imie": "Margo", "gatunek": "Kot", "wielkosc": "Średni", "waga": "2 kg", "szczepienia": "Tak", "boks": 3, "jedzenie": 10, "zabawa": 10 },
+"zwierze3":{ "imie": "Amit", "gatunek": "Kot", "wielkosc": "Średni", "waga": "2 kg", "szczepienia": "Tak", "boks": 4, "jedzenie": 10, "zabawa": 10 },
+"zwierze4":{ "imie": "Emi", "gatunek": "Królik", "wielkosc": "Miniaturka", "waga": "0,5 kg", "szczepienia": "Tak", "boks": 5, "jedzenie": 10, "zabawa": 10 },
+"zwierze5":{ "imie": "Tofik", "gatunek": "Królik", "wielkosc": "Mały", "waga": "1 kg", "szczepienia": "Tak", "boks": 6, "jedzenie": 10, "zabawa": 10 },
+"zwierze6":{ "imie": "Fama", "gatunek": "Papuga", "wielkosc": "Mały", "waga": "1 kg", "szczepienia": "Tak", "boks": 7, "jedzenie": 10, "zabawa": 10 },
+"zwierze7":{ "imie": "Ami", "gatunek": "Myszoskoczek", "wielkosc": "Mały", "waga": "0,1 kg", "szczepienia": "Tak", "boks": 8, "jedzenie": 10, "zabawa": 10 }
+}

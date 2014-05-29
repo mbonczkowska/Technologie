@@ -73,7 +73,7 @@ io.sockets.on('connection', function (socket) {
         var newWidth = new Paski(data);
         newWidth.save(function (err) {
             if (err) throw err;
-            console.log(data);
+           // console.log(data);
             io.sockets.emit("change width j", data);
         });
 

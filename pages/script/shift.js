@@ -1,21 +1,16 @@
 ﻿$(function () {
-    schronisko = [
-		{ imie: "Rex", gatunek: "Pies", wielkosc: "Duży", waga: "30 kg", szczepienia: "Tak", boks: 1, jedzenie: 10, zabawa: 10 },
-		{ imie: "Ren", gatunek: "Pies", wielkosc: "Średni", waga: "10 kg", szczepienia: "Tak", boks: 2, jedzenie: 10, zabawa: 10 },
-		{ imie: "Margo", gatunek: "Kot", wielkosc: "Średni", waga: "2 kg", szczepienia: "Tak", boks: 3, jedzenie: 10, zabawa: 10 },
-		{ imie: "Amit", gatunek: "Kot", wielkosc: "Średni", waga: "2 kg", szczepienia: "Tak", boks: 4, jedzenie: 10, zabawa: 10 },
-		{ imie: "Emi", gatunek: "Królik", wielkosc: "Miniaturka", waga: "0,5 kg", szczepienia: "Tak", boks: 5, jedzenie: 10, zabawa: 10 },
-		{ imie: "Tofik", gatunek: "Królik", wielkosc: "Mały", waga: "1 kg", szczepienia: "Tak", boks: 6, jedzenie: 10, zabawa: 10 },
-		{ imie: "Fama", gatunek: "Papuga", wielkosc: "Mały", waga: "1 kg", szczepienia: "Tak", boks: 7, jedzenie: 10, zabawa: 10 },
-		{ imie: "Ami", gatunek: "Myszoskoczek", wielkosc: "Mały", waga: "0,1 kg", szczepienia: "Tak", boks: 8, jedzenie: 10, zabawa: 10 }
-    ];
-	
-	var zwierz = "";
+    var schronisko=[];
+    $.getJSON("data/data_zwierzaki.json", function(results) {
+        $.each(results, function (index, r) {
+            schronisko.push({imie: r.imie, gatunek: r.gatunek, wielkosc: r.wielkosc, waga: r.waga, szczepienia: r.szczepienia, boks: r.boks, jedzenie: r.jedzenie, zabawa: r.zabawa});
+        });
+    });
+
+    var zwierz = "";
     var pomoc = "";
     var tytul = "";
     var socket = io.connect();
 	var prevState = "";
-
     setInterval(ustawCzas, 1000);
     function ustawCzas() {
         var data = new Date();
@@ -60,7 +55,7 @@
                 var $nakarmij = $('.' + data[i].idZwierzaka + ' footer .paski .defaultBar .jedzenie');
                 $nakarmij.width(data[i].szer);
 				//$('.' + data.idZwierzaka + ' footer .komunikaty').html(data.komunikat);
-                schronisko[data[i].idZwierzaka].jedzenie = zmien;
+               schronisko[data[i].idZwierzaka].jedzenie = zmien;
 
             }
    });
@@ -72,7 +67,7 @@
                 var zmien = (parseInt(data[i].szer)) / 10;
                 var $zabaw = $('.' + data[i].idZwierzaka + ' footer .paski .defaultBar .zabawa');
                 $zabaw.width(data[i].szer);
-                schronisko[data[i].idZwierzaka].zabawa = zmien;
+               schronisko[data[i].idZwierzaka].zabawa = zmien;
 
             }
    });
@@ -223,10 +218,10 @@
                 var jedz = $(this).parent().parent().children().children(".jedzenie");
                 zwierz = $(this).parent().parent().parent().parent().attr('class');
 				nazwaJedzenia =$(this).html();
-                //$('.' + zwierz + ' footer .komunikaty').show();
+              
 				$('.' + zwierz + ' footer .komunikaty').show();
 				var komunikat = "[" + nazwaJedzenia+ "] Został nakarmiony przez: " + $('#user').html() + "</br>";
-                if (schronisko[zwierz].jedzenie <= szer) {
+                if (schronisko[zwierz].jedzenie < szer) {
 
                     if (schronisko[zwierz].jedzenie === szer - 1) {
                         schronisko[zwierz].jedzenie += 1;
@@ -245,6 +240,7 @@
                 var jedz = $(this).parent().parent().children().children(".jedzenie");
                 zwierz = $(this).parent().parent().parent().parent().attr('class');
 				nazwaJedzenia =$(this).html();
+				$('.' + zwierz + ' footer .komunikaty').show();
 				var komunikat = "[" + nazwaJedzenia+ "] Został nakarmiony przez: " + $('#user').html() + "</br>";
                 $('.' + zwierz + ' footer .komunikaty').show();
                 if (schronisko[zwierz].jedzenie < szer) {
@@ -256,7 +252,7 @@
             $('.' + k + ' footer .paski .przyciski a:nth-child(3)').click(function () {
                 var zabaw = $(this).parent().parent().children().children(".zabawa");
                 zwierz = $(this).parent().parent().parent().parent().attr('class');
-               // $('.' + zwierz + ' footer .komunikaty').show();
+                $('.' + zwierz + ' footer .komunikaty').show();
 			   nazwaZabawy =$(this).html();
 				var komunikat = "[" + nazwaZabawy+ "] Pobawił się z: " + $('#user').html() + "</br>";
                 if (schronisko[zwierz].zabawa < szer) {
@@ -287,10 +283,13 @@
             });
         }
     }
-
-    $('#dogs, #cats,#rabbits,#others,#all').click(function () {
+    main = $('#big_wrapper').html();
+    $('#dogs, #cats,#rabbits,#others,#all,#main_page').click(function () {
         var licznik = 1;
 
+        if(this.id === 'main_page') {
+            $('#big_wrapper').html(main);
+        }
         if (this.id === 'dogs') {
             pomoc = "";
             title(this);
@@ -395,5 +394,6 @@
 
         });
     }
+
 
 });

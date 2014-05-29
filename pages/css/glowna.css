@@ -1,7 +1,7 @@
 ﻿
 
 
-header, section, footer, aside, nav, article, hgroup{
+header, section, footer, aside, nav, article{
 	display: block;
 	
 }
@@ -64,7 +64,14 @@ article footer{
 }
 #user{
 	font-size:20px;
-	//padding:10px 15px;
+    padding-top:10px;
+    padding-right: 100px;
+}
+#logout{
+    position: absolute;
+    right: 95px;
+    top: 3px;
+    display:none;
 }
 .dropdown-menu li{
 cursor:pointer;
@@ -74,4 +81,9 @@ cursor:pointer;
         }
 #formularz{
 	display: none;
+}
+#nickError{
+    position: absolute;
+    right: 365px;
+    top: 10px;
 }

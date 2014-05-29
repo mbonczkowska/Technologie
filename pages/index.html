@@ -14,8 +14,8 @@
 <body>
     <nav id="top_menu">
         <ul class="nav nav-pills navbar-inverse ">
-            <li class="active"><a href="/">Główna/Wyloguj</a></li>
-
+         <!--   <li class="active"><a href="/">Główna/Wyloguj</a></li>-->
+            <li class="active"><a id="main_page">Główna</a>
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Zwierzęta <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -43,8 +43,9 @@
 					<div id="nickError"></div>
 				<form action="" id="setNick" class="navbar-form">
 					<input type="text" class="form-control"  id="nickname">
-					<input type="submit" class="btn btn-default">
+					<input type="submit" class="btn btn-default" value="Zaloguj">
 				</form>
+            <a href="/" class="btn btn-danger" id="logout">Wyloguj</a>
 		</div>
 			
         </ul>

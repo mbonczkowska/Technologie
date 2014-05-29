@@ -4,6 +4,7 @@
 	var $nickError = $('#nickError');
 	var $nickBox = $('#nickname');
 	var $user = $('#user');
+    var $logout = $('#logout');
 	
 	$nickForm.submit(function(e){
 		e.preventDefault();
@@ -12,6 +13,7 @@
 				$nickForm.hide();
 				$nickError.hide();
 				$user.show();
+                $logout.show();
 			} else{
 				$nickError.html('Ten login już został użyty. Spróbuj ponownie');
 			}

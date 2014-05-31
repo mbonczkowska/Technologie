@@ -5,11 +5,20 @@
 	var $nickBox = $('#nickname');
 	var $user = $('#user');
     var $logout = $('#logout');
+    var $pass = $('#pass');
 	
 	$nickForm.submit(function(e){
 		e.preventDefault();
-		socket.emit('new user', $nickBox.val(), function(data){
-			if(data){			
+        if($nickBox.val()==="admin"){
+            $pass.show( function() {
+                if($pass.val()==="123") {
+                    $("#panelAdmina").css("visibility", "visible");
+                }
+            });
+        }
+        else
+        {socket.emit('new user', $nickBox.val(), function(data){
+			if(data){
 				$nickForm.hide();
 				$nickError.hide();
 				$user.show();
@@ -18,7 +27,10 @@
 				$nickError.html('Ten login już został użyty. Spróbuj ponownie');
 			}
 		});
-		$nickBox.val('');
+            $nickBox.val('');
+        }
+
+
 			
 	});
 	

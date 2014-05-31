@@ -2,9 +2,22 @@
     var schronisko=[];
     $.getJSON("data/data_zwierzaki.json", function(results) {
         $.each(results, function (index, r) {
-            schronisko.push({imie: r.imie, gatunek: r.gatunek, wielkosc: r.wielkosc, waga: r.waga, szczepienia: r.szczepienia, boks: r.boks, jedzenie: r.jedzenie, zabawa: r.zabawa});
+            var index2 = index.substring(7);
+            schronisko[index2] ={imie: r.imie, gatunek: r.gatunek, wielkosc: r.wielkosc, waga: r.waga, szczepienia: r.szczepienia, boks: r.boks, jedzenie: r.jedzenie, zabawa: r.zabawa};
+
+            socket.emit('event j start', { szer: 10* schronisko[index2].jedzenie + "px", idZwierzaka: index2 });
+            socket.emit('event z start', { szer: 10* schronisko[index2].zabawa+"px", idZwierzaka: index2 });
         });
+
     });
+    function dodajZdjecia() {
+        $.getJSON("data/data_zdjecia.json", function (results) {
+            $.each(results, function (index, r) {
+                var index2 = index.substring(7);
+                $("." + index2 + " div img").attr("src", r.src);
+            });
+        });
+    }
 
     var zwierz = "";
     var pomoc = "";
@@ -79,7 +92,7 @@
 
     function ustaw(schronisko) {
         zwierz = "<article class=\"" + i + "\"> <header> <p>" + schronisko[i].imie + "</p> </header>" +
-		"<div class=\"obr\"> <img src=\"../photos/" + schronisko[i].imie + ".jpg\" alt=\"" + schronisko[i].imie + "\" class=\"img-thumbnail\">" +
+		"<div class=\"obr\"> <img alt=\"" + schronisko[i].imie + "\" class=\"img-thumbnail\">" +
 		"</div> <table class=\"table table-striped tab\">  <tr> <th>Wielkość</th> <td>" + schronisko[i].wielkosc + "</td> </tr> <tr>" +
 		"<th>Waga wejściowa</th> <td>" + schronisko[i].waga + "</td> </tr> <tr> <th>Szczepienia</th> <td>" + schronisko[i].szczepienia + "</td> </tr> <tr> <th>Boks</th>" +
 		"<td>" + schronisko[i].boks + "</td> </tr>  </table> <footer><div class=\"paski\"></div> <p><a href=\"#\" class=\"btn btn-success btn-lg przygarnij\" id=\"" + schronisko[i].boks + "\">Przygarnij</a></p>" +
@@ -87,6 +100,8 @@
         //<div id=\"komunikaty\"><a href=\"#\" class=\"btn btn-danger btn-xs ukryj\">X</a></div>
         pomoc += zwierz;
         $("#articles").html(pomoc);
+        dodajZdjecia();
+
     }
 
     function dodajPaski(licznik) {
@@ -95,10 +110,11 @@
 		+ "<div class=przyciski></div>");
 
         for (m = 0; m <= licznik; m++) {
-		
-            var danaj = 10 * schronisko[m].jedzenie + "px";           
-            socket.emit('event j', { szer: danaj, idZwierzaka: m });
-            socket.on('change width j', function (data) {               
+            $('.'+m+' footer .paski .jedzenie').width((10*schronisko[m].jedzenie) + "px");
+            $('.'+m+' footer .paski .zabawa').width((10*schronisko[m].zabawa) +  "px");
+            var danaj = 10 * schronisko[m].jedzenie + "px";
+           // socket.emit('event j', { szer: danaj, idZwierzaka: m });
+            socket.on('change width j', function (data) {
                 var zmien = (parseInt(data.szer)) / 10;
                 var $nakarmij = $('.' + data.idZwierzaka + ' footer .paski .defaultBar .jedzenie');
                 $nakarmij.width(data.szer);				
@@ -106,22 +122,24 @@
 			});
 			
             var danaz = 10 * schronisko[m].zabawa + "px";
-            socket.emit('event z', { szer: danaz, idZwierzaka: m });
+          //  socket.emit('event z', { szer: danaz, idZwierzaka: m });
             socket.on('change width z', function (data) {
                 var zmien = (parseInt(data.szer)) / 10;
                 var $zabaw = $('.' + data.idZwierzaka + ' footer .paski .defaultBar .zabawa');
                 $zabaw.width(data.szer);
                 schronisko[data.idZwierzaka].zabawa = zmien;
             });
-		
+
+
+
         }
 
         for (var k = 0; k <= licznik; k++) {
             if (schronisko[k].gatunek === "Pies") {
-                $('.' + k + ' footer .paski .przyciski').html("<a href=\"#\" class=\"btn btn-primary btn-sm\">Kość</a>" +
-                "<a href=\"#\" class=\"btn btn-primary btn-sm\">Sucha karma</a>" +
-                "<a href=\"#\" class=\"btn btn-primary btn-sm\">Patyk</a>" +
-                "<a href=\"#\" class=\"btn btn-primary btn-sm\">Piłka</a>");
+                $('.' + k + ' footer .paski .przyciski').html("<a class=\"btn btn-primary btn-sm\">Kość</a>" +
+                "<a  class=\"btn btn-primary btn-sm\">Sucha karma</a>" +
+                "<a class=\"btn btn-primary btn-sm\">Patyk</a>" +
+                "<a  class=\"btn btn-primary btn-sm\">Piłka</a>");
             }
             if (schronisko[k].gatunek === "Kot") {
                 $('.' + k + ' footer .paski .przyciski').html("<a href=\"#\" class=\"btn btn-primary btn-sm\">Karma</a>" +
@@ -285,8 +303,6 @@
     }
     main = $('#big_wrapper').html();
     $('#dogs, #cats,#rabbits,#others,#all,#main_page').click(function () {
-        var licznik = 1;
-
         if(this.id === 'main_page') {
             $('#big_wrapper').html(main);
         }
@@ -295,27 +311,18 @@
             title(this);
             for (i = 0; i < schronisko.length; i++) {
                 if (schronisko[i].gatunek === "Pies") {
-
                     ustaw(schronisko);
                     dodajPaski(i);
-
                     ustawPaski(i);
-
-
-                    licznik++;
                 }
-
             }
-
         }
         else if (this.id == 'cats') {
             pomoc = "";
             title(this);
             for (i = 0; i < schronisko.length; i++) {
-
                 if (schronisko[i].gatunek === "Kot") {
                     ustaw(schronisko);
-
                     dodajPaski(i);
                     ustawPaski(i);
 
@@ -327,15 +334,11 @@
             pomoc = "";
             title(this);
             for (i = 0; i < schronisko.length; i++) {
-
                 if (schronisko[i].gatunek === "Królik") {
                     ustaw(schronisko);
                     dodajPaski(i);
                     ustawPaski(i);
                 }
-
-
-
             }
         }
         else if (this.id == 'others') {
@@ -357,7 +360,7 @@
             for (i = 0; i < schronisko.length; i++) {
 
                 zwierz = "<article class=\"" + i + "\"> <header> <p>" + schronisko[i].imie + "</p> </header>" +
-                "<div class=\"obr\"> <img src=\"photos/" + schronisko[i].imie + ".jpg\" alt=\"" + schronisko[i].imie + "\" class=\"img-thumbnail\">" +
+                "<div class=\"obr\"> <img alt=\"" + schronisko[i].imie + "\" class=\"img-thumbnail\">" +
                 "</div> <table class=\"table table-striped tab\"> <tr> <th>Gatunek</th> <td>" + schronisko[i].gatunek + "</td> </tr>  <tr> <th>Wielkość</th> <td>" + schronisko[i].wielkosc + "</td> </tr> <tr>" +
                 "<th>Waga wejściowa</th> <td>" + schronisko[i].waga + "</td> </tr> <tr> <th>Szczepienia</th> <td>" + schronisko[i].szczepienia + "</td> </tr> <tr> <th>Boks</th>" +
                 "<td>" + schronisko[i].boks + "</td> </tr>  </table> <footer> <div class=\"paski\"></div>" +
@@ -369,6 +372,7 @@
 
                 dodajPaski(i);
                 ustawPaski(i);
+                dodajZdjecia();
             };
 
         }

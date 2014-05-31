@@ -5,7 +5,10 @@
 	less = require('less-middleware'),
 	mongoose = require('mongoose'),
 	nicknames = [],
-	count = 1;
+	count = 1,
+    wejsc = 0;
+
+
 
 server.listen(3000);
 
@@ -47,6 +50,7 @@ app.use(less({
     compress: true
 }));
 io.sockets.on('connection', function (socket) {
+
     Paski.find({}, function (err, docs) {
         if (err) throw err;
         console.log('Wysyłanie starych pasków');
@@ -69,11 +73,33 @@ io.sockets.on('connection', function (socket) {
 
         }
     });
+
+    socket.on('event j start', function (data) {
+
+        if(wejsc === 1) {
+            var newWidth = new Paski(data);
+            newWidth.save(function (err) {
+                if (err) throw err;
+                io.sockets.emit("change width j", data);
+            });
+
+        }
+    });
+    socket.on('event z start', function (data) {
+        if(wejsc === 1) {
+            var newWidth = new PaskiZabawy(data);
+            newWidth.save(function (err) {
+                if (err) throw err;
+                io.sockets.emit("change width z", data);
+            });
+        }
+
+    });
     socket.on('event j', function (data) {
         var newWidth = new Paski(data);
         newWidth.save(function (err) {
             if (err) throw err;
-           // console.log(data);
+
             io.sockets.emit("change width j", data);
         });
 
@@ -82,7 +108,7 @@ io.sockets.on('connection', function (socket) {
 		var newWidth = new PaskiZabawy(data);
         newWidth.save(function (err) {
             if (err) throw err;
-			//console.log(data);
+
 			io.sockets.emit("change width z", data);
 		});
     });
@@ -102,4 +128,7 @@ io.sockets.on('connection', function (socket) {
         nicknames.splice(nicknames.indexOf(socket.nickname), 1);
 
     });
+    wejsc+=1;
+    console.log(wejsc);
 });
+

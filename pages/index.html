@@ -28,13 +28,12 @@
                 </ul>
             </li>
             <li><a href="#">Profile</a></li>
-            <li class="dropdown pull-right" style="visibility: hidden;">
+            <li class="dropdown pull-right" id="panelAdmina" style="visibility: hidden;">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Settings</a></li>
+                    <li><a id="feed">Karmienie</a></li>
+                    <li><a id="play">Zabawa</a></li>
+                    <li><a id="application">Zgłoszenia adopcji</a></li>
                 </ul>
             </li>
 				
@@ -43,6 +42,7 @@
 					<div id="nickError"></div>
 				<form action="" id="setNick" class="navbar-form">
 					<input type="text" class="form-control"  id="nickname">
+                    <input type="password" class="form-control"  id="pass">
 					<input type="submit" class="btn btn-default" value="Zaloguj">
 				</form>
             <a href="/" class="btn btn-danger" id="logout">Wyloguj</a>
@@ -139,7 +139,7 @@
 	
 	<script src="script/shift.js"></script>
 	<script src="script/form.js"></script>
-	<script src="script/buttons.js"></script>
+	<script src="script/admin.js"></script>
 	
 </body>
 </html>

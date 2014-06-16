@@ -6,13 +6,17 @@
 	var $user = $('#user');
     var $logout = $('#logout');
     var $pass = $('#pass');
-	
+
+
 	$nickForm.submit(function(e){
 		e.preventDefault();
         if($nickBox.val()==="admin"){
             $pass.show( function() {
                 if($pass.val()==="123") {
                     $("#panelAdmina").css("visibility", "visible");
+					$nickForm.hide();
+					$logout.show();
+					$pass.hide();
                 }
             });
         }
@@ -23,20 +27,23 @@
 				$nickError.hide();
 				$user.show();
                 $logout.show();
+
 			} else{
 				$nickError.html('Ten login już został użyty. Spróbuj ponownie');
 			}
 		});
             $nickBox.val('');
+
         }
 
 
 			
 	});
-	
+
 	socket.on('usernames',function(data){
-		
+
 		$user.html(data);
+
 		//$user.html(data.count+ "sss"  + i + data.nick.length-1 );
 		// + data.nick[data.count + data.nick.length-1]
 		

@@ -6,7 +6,7 @@
     <title>Schronisko</title>
 
     <!-- Bootstrap -->
-    <link href="../components-bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="components-bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	
     <link href="css/animal.css" rel="stylesheet">
 	<link href="css/glowna.css" rel="stylesheet">
@@ -27,7 +27,7 @@
 					<li><a id="all">Wszystkie</a></li>
                 </ul>
             </li>
-            <li><a href="#">Profile</a></li>
+
             <li class="dropdown pull-right" id="panelAdmina" style="visibility: hidden;">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -37,16 +37,19 @@
                 </ul>
             </li>
 				
-		<div id="nickWrap">
+		<li id="nickWrap">
 					<div id="user"></div>
 					<div id="nickError"></div>
-				<form action="" id="setNick" class="navbar-form">
+				<form id="setNick" class="navbar-form">
+                    <label for="nickname"></label>
 					<input type="text" class="form-control"  id="nickname">
+                    <label for="pass"></label>
                     <input type="password" class="form-control"  id="pass">
+
 					<input type="submit" class="btn btn-default" value="Zaloguj">
 				</form>
             <a href="/" class="btn btn-danger" id="logout">Wyloguj</a>
-		</div>
+		</li>
 			
         </ul>
 		
@@ -67,12 +70,10 @@
               <div id="articles">
                 <article>
                     <header>
-                        <hgroup>
+                        <div>
                             <h1>Tytuł artykułu</h1>
                             <h2>Podtytuł artykułu!</h2>
-
-                           
-                        </hgroup>
+                        </div>
                     </header>
                     <p>artykuł</p>
                     <footer>
@@ -81,11 +82,11 @@
                 </article>
                 <article>
                     <header>
-                        <hgroup>
+                        <div>
                             <h1>Tytuł artykułu 2</h1>
                             <h2>Podtytuł artykułu!</h2>
                          
-                        </hgroup>
+                        </div>
                     </header>
                     <p>artykuł</p>
                     <footer>
@@ -94,15 +95,12 @@
                 </article>
 				</div>
             </section>
-              <aside id="side_news" class=" text-left">
-                <h4>Nowości</h4>
-                Mamy nowych podopiecznych
-            </aside>   
+
            
 			<div id="formularz">
 			 <form>
 			<div class="form-group">
-				<label for="inputName">Wybrałeś</label>
+				<label for="wybrany">Wybrałeś</label>
 				<input type="text" class="form-control" id="wybrany" disabled>
 			</div>
 				           <h3>Dane właściciela</h3>
@@ -116,14 +114,28 @@
 				<label for="inputSurname">Nazwisko</label>
 				<input type="text" class="form-control" id="inputSurname" placeholder="Nazwisko">
 			</div>
-			<div class="checkbox">
-				<label><input type="checkbox"> Remember me</label>
-			</div>
-			<button type="submit" class="btn btn-primary">Login</button>
+            <div class="form-group">
+                <label for="inputSurname">E-mail</label>
+                <input type="email" class="form-control" id="inputEmail" placeholder="E-mail">
+            </div>
+            <div class="form-group">
+                <label for="inputSurname">Telefon</label>
+                <input type="number" class="form-control" id="inputPhone" placeholder="Telefon">
+            </div>
+			<button type="submit" class="btn btn-primary">Wyślij</button>
 		</form>
-			
+                <div class="panel panel-success" id="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Formularz został wysłany</h3>
+                    </div>
+                </div>
         </div>
+            <aside id="side_news" class=" text-left">
+                <h4>Nowości</h4>
+                Mamy nowych podopiecznych
+            </aside>
 		</div>
+
         <footer id="the_footer" class="container">
             Copyright 2014 
         </footer>
@@ -134,7 +146,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="../socket.io/socket.io.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../components-bootstrap/js/bootstrap.min.js"></script>
+    <script src="components-bootstrap/js/bootstrap.min.js"></script>
 	<script src="script/user.js"></script>
 	
 	<script src="script/shift.js"></script>

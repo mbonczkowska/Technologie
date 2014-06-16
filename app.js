@@ -5,7 +5,6 @@
 	less = require('less-middleware'),
 	mongoose = require('mongoose'),
 	nicknames = [],
-	count = 1,
     wejsc = 0;
 
 
@@ -34,9 +33,17 @@ var paskiZabawySchema = mongoose.Schema({
 	komunikat: String,
     created: { type: Date, default: Date.now }
 });
+var adopcjeSchema = mongoose.Schema({
+    wybrany: String,
+    telefon: String,
+    imie: String,
+    nazwisko: String,
+    email: String
+});
 
 var Paski = mongoose.model('Width', paskiSchema);
 var PaskiZabawy = mongoose.model('WidthPlay', paskiZabawySchema);
+var Adopcje = mongoose.model('Adoption', adopcjeSchema);
 app.get('/', function (req, res) {
     res.sendfile(__dirname + '/pages/index.html');
     app.use(express.static(__dirname + '/bower_components')); // deklaracja css/bootstrap
@@ -44,8 +51,8 @@ app.get('/', function (req, res) {
 });
 
 app.use(less({
-    src: '/pages/less',
-    dest: '/pages/css',
+    src: __dirname + "/pages/less",
+    dest: __dirname + "/pages/css",
     prefix: '/css',
     compress: true
 }));
@@ -56,10 +63,40 @@ io.sockets.on('connection', function (socket) {
         console.log('Wysyłanie starych pasków');
         socket.emit('zaladuj stare paski', docs);
     });
+
 	PaskiZabawy.find({}, function (err, docs) {
         if (err) throw err;
         console.log('Wysyłanie starych pasków zabawy');
         socket.emit('zaladuj stare paski zabawy', docs);
+    });
+    socket.on('wyslij jedzenie',function(){
+        Paski.find({}, function (err, docs) {
+            if (err) throw err;
+            console.log('Wysyłanie starych pasków');
+            socket.emit('zaladuj stare paski', docs);
+        });
+    });
+    socket.on('wyslij zabawy',function(){
+    PaskiZabawy.find({}, function (err, docs) {
+        if (err) throw err;
+        console.log('Wysyłanie starych pasków zabawy');
+        socket.emit('zaladuj stare paski zabawy', docs);
+    });
+    });
+    socket.on('adopcje',function(){
+    Adopcje.find({}, function (err, docs) {
+        if (err) throw err;
+
+        socket.emit('zaladuj stare adopcje', docs);
+    });
+    });
+
+    socket.on('zgloszenie do adopcji', function (data) {
+        var newWidth = new Adopcje(data);
+        newWidth.save(function (err) {
+            if (err) throw err;
+            io.sockets.emit("zgloszenia", data);
+        });
     });
     socket.on('new user', function (data, callback) {
         if (nicknames.indexOf(data) != -1) {
@@ -74,13 +111,13 @@ io.sockets.on('connection', function (socket) {
         }
     });
 
-    socket.on('event j start', function (data) {
+  /*  socket.on('event j start', function (data) {
 
         if(wejsc === 1) {
             var newWidth = new Paski(data);
             newWidth.save(function (err) {
                 if (err) throw err;
-                io.sockets.emit("change width j", data);
+                socket.emit("change width j", data);
             });
 
         }
@@ -90,11 +127,11 @@ io.sockets.on('connection', function (socket) {
             var newWidth = new PaskiZabawy(data);
             newWidth.save(function (err) {
                 if (err) throw err;
-                io.sockets.emit("change width z", data);
+                socket.emit("change width z", data);
             });
         }
 
-    });
+    });*/
     socket.on('event j', function (data) {
         var newWidth = new Paski(data);
         newWidth.save(function (err) {
@@ -111,6 +148,14 @@ io.sockets.on('connection', function (socket) {
 
 			io.sockets.emit("change width z", data);
 		});
+    });
+	socket.on('usun jedzenie', function (data) {
+		var query = Paski.update({ _id: data},{$unset:{komunikat:""}});
+		query.exec();		
+    });
+	socket.on('usun zabawe', function (data){ 
+		var query = PaskiZabawy.update({ _id: data},{$unset:{komunikat:""}});
+		query.exec();		
     });
 	 socket.on('send message j', function (data) {
         io.sockets.emit("change message j", data);

@@ -1,99 +1,89 @@
-﻿
-
-
-header, section, footer, aside, nav, article{
+header,
+section,
+footer,
+aside,
+nav,
+article {
   display: block;
-
 }
-
-
 #big_wrapper {
-
-
   margin: 0 auto;
-
 }
 #top_header {
-  padding: 20px; /* w środku */
-  margin-bottom:0px;
+  padding: 20px;
+  /* w środku */
+  margin-bottom: 0px;
 }
-#new_div{
-
-}
-#main_section{
-
+#main_section {
   float: left;
   width: 760px;
-  margin: 30px; /* 720px, 280 left*/
+  margin: 30px;
+  /* 720px, 280 left*/
 }
-
 #side_news {
   float: left;
   width: 270px;
-  margin: 20px 0px; /* top bottom */
+  margin: 20px 0px;
+  /* top bottom */
   padding: 30px;
-
 }
-
 #the_footer {
-  clear:both; /* bez marginesów/paddingów */
+  clear: both;
+  /* bez marginesów/paddingów */
   text-align: center;
-  padding:20px;
+  padding: 20px;
   border-top: 2px solid green;
-
 }
-
 article {
-
   padding: 20px;
   margin-bottom: 15px;
 }
-
-article footer{
-  text-align:right;
+article footer {
+  text-align: right;
 }
 .form-group input {
-  width:300px;
+  width: 300px;
 }
-#nickWrap{
-  float:right;
+#nickWrap {
+  float: right;
   margin: -5px 0 -5px 0;
 }
-#nickBox, #nickError,#user{
-  color:#428bca;
+#nickBox,
+#nickError,
+#user {
+  color: #428bca;
 }
-#user{
-  font-size:20px;
-  padding-top:10px;
+#user {
+  font-size: 20px;
+  padding-top: 10px;
   padding-right: 100px;
 }
-#logout{
+#logout {
   position: absolute;
   right: 5px;
   top: 3px;
-  display:none;
-}
-
-#pass{
   display: none;
 }
-.dropdown-menu li{
-  cursor:pointer;
-}
-#user{
+#pass {
   display: none;
 }
-#formularz{
+.dropdown-menu li {
+  cursor: pointer;
+}
+#user {
+  display: none;
+}
+#formularz {
   display: none;
   margin-bottom: 20px;
 }
-#nickError{
+#nickError {
   position: absolute;
   right: 345px;
   top: 10px;
-  width:300px;
+  width: 300px;
 }
-#panel{
+#panel {
   display: none;
   width: 500px;
   text-align: center;
